@@ -1,0 +1,2 @@
+# imagecompress
+An image compressor!
