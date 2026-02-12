@@ -1,0 +1,11 @@
+Supported image formats to start with: png, jpg/jpeg, bmp, webp
+
+Start with just console app? GUI comes later
+
+User can select the type of compression (lossy or lossless), and the type of method.
+User can choose where to save the new file.
+
+
+
+
+https://en.wikipedia.org/wiki/Image_compression#Lossy_and_lossless_image_compression as a starting point for general research
