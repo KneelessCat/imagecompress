@@ -9,3 +9,17 @@ User can choose where to save the new file.
 
 
 https://en.wikipedia.org/wiki/Image_compression#Lossy_and_lossless_image_compression as a starting point for general research
+
+Project structure
+parent/
+  makefile(/) -> script(s) to build the project
+  src/ -> project files
+  include/ -> public header files (.h)
+  bin/ -> executables (.exe files)
+  lib/ -> third party libraries
+  docs/ -> Documentation
+  README.md
+
+Additional?
+  build/ -> intermediate build files (like .o files)
+  tests/ -> unit tests
