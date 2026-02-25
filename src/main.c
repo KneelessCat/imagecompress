@@ -1,16 +1,4 @@
-// Alright.
-//
-// Next task(s) for small start! :D
-//
-// 1. Create a small text window to introduce it, minimal ascii art, with options for loading an image, and exiting
-// 2. Print the rgb values
-// 3. Start with PPM. Really 'easy' starting point. Then worry about other formats
-// 4. We'll want to work with other formats later, will want to check the file format when taking it in (so allow program to accept .png, /jpg etc. and just display a small 'not implemented yet!' message
-
-#include <stdio.h>
-#include <string.h>
-#include "main.h"
-
+/*
 // Lines for the intro box
 const char *textLines[] = {
 	"Hello, welcome to my image compressor!",
@@ -73,16 +61,51 @@ void boxMessage() {
 	boxLine();
 
 	printf("\n");
+}*/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
+
+
+#include "main.h"
+#include "image.h"
+
+const char *VALIDCARGS[] = {"compress","compression","c"};
+const char *VALIDDARGS[] = {"decompress", "decompression", "d"};
+
+
+// This function takes the real argument passed in for compression/decompression, and checks if it is valid
+bool isValidArg(char *realarg) {
+	// C and D args should be same length, so we just calculate size once
+	// 24 (3 pointers) divided by 8 (size of one pointer) = 3
+	int leng = (sizeof(VALIDCARGS) / sizeof(VALIDCARGS[0]));
+
+	// Convert the argument to lowercase
+	for (char *c = realarg; *c != '\0'; c++) {
+		*c = tolower(*c);
+	}
+
+	// Check if the argument matches any of the valid ones (defined in CARGS and DARGS)
+	for (int k = 0; k < leng; k++) {
+
+		// If it matches either a compression or decompression argument, we exit the function with true (is valid)
+		if (!strcmp(realarg, VALIDCARGS[k]) || !strcmp(realarg, VALIDDARGS[k])) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
-int main() {
+
+/*int main() {
 	boxMessage();
-	//return 0;
+	//return 0
 
-
-		
 	// Loops, just keeps program open until typing 1 to exit
-	printf("\nType 1, and then ENTER to exit. ");
+	printf("\nNothing here... Type 1, and then ENTER to exit. ");
 	int exit = 0;
 
 	while (true) {
@@ -91,6 +114,52 @@ int main() {
 		if (exit == 1) {
 			return 0;
 		}
+	}	
+	return 0;
+
+}*/
+
+int main(int argc, char *argv[]) {
+	// TODO: error messages later
+
+	// We must have three additional arguments
+	//		mode (compress - or c, decompress - or d)
+	//		input (image to input)
+	//		output (resultant image) - IGNORE FOR NOW
+
+	// First argument is executable name
+	// Only two additional arguments for now
+	if (argc != 3) {
+		printf("Nothing...");
+		return -1;
+	}
+
+	else {
+
+		// If an invalid argument, we exit the program 
+		if (!(isValidArg(argv[1]))) {
+			return -1;
+		}
+
+		// Get the file type of second user-defined arg for now
+		detect_filetype(argv[2]);
 	}
 
 }
+
+
+/*
+main.c
+
+Literally just takes the arguments passed into the program when its run
+
+load image function
+
+image.c/image.h
+
+image.h can have the function signatures and an enum for each file type
+implemented (e.g. PPM, BMP).
+
+image.c will detect file type by parsing the extension. And load image?
+
+*/
