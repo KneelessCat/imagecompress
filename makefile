@@ -3,27 +3,55 @@ OBJECTS = $(patsubst src/%.c, build/%.o, $(SOURCE))
 
 FLAGS = -Wall -Wextra -g -O
 
-BUILD = build/
-BIN = bin/
-TARGET = bin/pcomp
+ifeq ($(OS),Windows_NT)
+     BUILD = build
+     BIN = bin
+     MKDIR = mkdir
+     RM = del /Q
+     RMDIR = rmdir /S /Q
+     TARGET = $(BIN)\pcomp.exe
+	 
+else
+    BUILD = build/
+    BIN = bin/
+    MKDIR = mkdir -p
+    RM = rm -f
+    RMDIR = rm -rf
+    TARGET = $(BIN)/pcomp
+endif
+
+
+DEPS = $(OBJECTS:.o=.d)
+-include $(DEPS)
+
+
+$(OBJECTS) : | $(BIN) $(BUILD)
 
 $(BUILD) :
-	mkdir -p $(BUILD)
+	$(MKDIR) $(BUILD)
 
 $(BIN) :
-	mkdir -p $(BIN)
+	$(MKDIR) $(BIN)
 
 
 build/%.o : src/%.c
-	gcc -c $(FLAGS) $< -o $@
+	gcc -MMD -MP -MF $(@:.o=.d) -c $(FLAGS) $< -o $@
+
 
 $(TARGET): $(OBJECTS)
+	$(RM) $(TARGET)
 	gcc $(FLAGS) $(OBJECTS) -o $(TARGET)
 
 
 
-all : $(TARGET)
+all : $(TARGET) 
 
 
 clean:
-	rm -rf build/*.o $(TARGET)
+	$(RMDIR) $(BUILD) 
+	$(RM) $(TARGET)
+	
+	
+.SUFFIXES:
+
+.PHONY : all clean
