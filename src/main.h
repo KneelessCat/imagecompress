@@ -6,7 +6,15 @@ extern const int textLineCount;
 void boxLine();
 void boxMessage(); */
 
-bool isValidArg(char *realarg);
+#ifndef MAIN_H
+#define MAIN_H
+
+bool is_valid_arg(char *realarg);
 
 extern const char *VALIDCARGS[];
 extern const char *VALIDDARGS[];
+extern const char *FILEEXTS[];
+
+
+
+#endif

@@ -13,7 +13,21 @@ typedef enum ImageTypeName {
 } ImageType;
 
 
+// Types, where we can just add a new one
+// TODO: Can this be done elsewhere?
+#define FILETYPES \
+	".png", \
+	".jpeg", \
+	".jpg", \
+	".bmp", \
+	".webp", \
+	".ppm"
+
+bool filename_is_extension (const char *filename);
+
 ImageType detect_filetype(const char *filepath);
+
+char* return_filetype(ImageType type);
 
 
 #endif

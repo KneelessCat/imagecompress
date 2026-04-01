@@ -75,9 +75,8 @@ void boxMessage() {
 const char *VALIDCARGS[] = {"compress","compression","c"};
 const char *VALIDDARGS[] = {"decompress", "decompression", "d"};
 
-
 // This function takes the real argument passed in for compression/decompression, and checks if it is valid
-bool isValidArg(char *realarg) {
+bool is_valid_arg(char *realarg) {
 	// C and D args should be same length, so we just calculate size once
 	// 24 (3 pointers) divided by 8 (size of one pointer) = 3
 	int leng = (sizeof(VALIDCARGS) / sizeof(VALIDCARGS[0]));
@@ -126,23 +125,31 @@ int main(int argc, char *argv[]) {
 	//		mode (compress - or c, decompress - or d)
 	//		input (image to input)
 	//		output (resultant image) - IGNORE FOR NOW
-
 	// First argument is executable name
 	// Only two additional arguments for now
 	if (argc != 3) {
-		printf("Nothing...");
+		printf("Nothing...\n");
 		return -1;
 	}
 
 	else {
-
-		// If an invalid argument, we exit the program 
-		if (!(isValidArg(argv[1]))) {
+		// If an invalid argument for compression or decompression, we exit the program 
+		if (!(is_valid_arg(argv[1]))) {
 			return -1;
 		}
 
+
 		// Get the file type of second user-defined arg for now
-		detect_filetype(argv[2]);
+		ImageType file_t = detect_filetype(argv[2]);
+	
+		if (file_t != UNKNOWN) {
+			printf("%s\n", return_filetype(file_t));
+		}
+
+		else {
+			printf("UNKNOWN FILE TYPE\n");
+		}
+
 	}
 
 }

@@ -1,10 +1,11 @@
 Supported image formats to start with: png, jpg/jpeg, bmp, webp
 
+ppm is what I used for uni project ages back, could be a good start
+
 Start with just console app? GUI comes later
 
 User can select the type of compression (lossy or lossless), and the type of method.
 User can choose where to save the new file.
-
 
 
 
